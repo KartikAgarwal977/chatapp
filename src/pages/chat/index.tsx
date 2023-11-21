@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import {
   addDoc,
-  serverTimestamp,
   collection,
   onSnapshot,
   where,
@@ -9,11 +8,13 @@ import {
   DocumentData,
 } from "firebase/firestore";
 import { auth, db } from "../../firebase-config";
-
-export const Chat: React.FC = (props) => {
+interface RoomProps {
+  room: string;
+}
+export const Chat: React.FC<RoomProps> = (props) => {
   const { room } = props;
-  const [newMessage, setNewMessage] = useState<DocumentData[]>([]);
-  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState<string>();
+  const [messages, setMessages] = useState<DocumentData[]>([]);
   const messageRef = collection(db, "messages");
 
   useEffect(() => {
@@ -27,10 +28,9 @@ export const Chat: React.FC = (props) => {
     return () => unsubscribe();
   }, [messageRef, room]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:any) => {
     e.preventDefault();
     console.log(newMessage);
-    if (newMessage === "") return;
 
     await addDoc(messageRef, {
       text: newMessage,
@@ -43,26 +43,9 @@ export const Chat: React.FC = (props) => {
       room,
     });
 
-    setNewMessage("");
+    setNewMessage('');
   };
 
-  // Function to generate a color for a username
-  const getColor = (username) => {
-    let hash = 0;
-    for (let i = 0; i < username.length; i++) {
-      hash = 31 * hash + username.charCodeAt(i);
-    }
-    const colors = [
-      "red",
-      "yellow",
-      "green",
-      "blue",
-      "indigo",
-      "purple",
-      "pink",
-    ];
-    return colors[hash % colors.length];
-  };
 
   return (
     <div className="bg-amber-200 h-screen flex flex-col">
@@ -73,9 +56,7 @@ export const Chat: React.FC = (props) => {
             className="flex flex-col bg-white p-4 rounded-xl space-y-2"
           >
             <span
-              className={`font-semibold text-sm text-${getColor(
-                message.user
-              )}-600`}
+              className={`font-semibold text-sm text-red-600`}
             >
               {message.user}
             </span>

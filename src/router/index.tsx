@@ -22,7 +22,7 @@ const router = createBrowserRouter([
     path: "/home",
     element: (
       <ProtectedRoute>
-        <Room />
+        <Room room={null} />
       </ProtectedRoute>
     ),
   },

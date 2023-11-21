@@ -26,14 +26,22 @@ const SignupForm: React.FC = () => {
         const user = userCredential.user;
         console.log("Signed up!", user);
         cookies.set("auth-token", user.refreshToken);
-        updateProfile(auth.currentUser, {
-          displayName: data.userName,
-        }).then(() => {
-          console.log(auth)
-        }).catch((error) => {
-          console.log("Error Occur:", error);
-        });
-        navigate("/home");
+        if (auth.currentUser) {
+
+          updateProfile(auth.currentUser, {
+            displayName: data.userName,
+          }).then(() => {
+            console.log(auth)
+          }).catch((error) => {
+            console.log("Error Occur:", error);
+          });
+          navigate("/home");
+        }
+        else {
+          console.log('sign in failed')
+          alert("sigin failed")
+        }
+        
       })
       .catch((error) => {
         console.log(error.code);

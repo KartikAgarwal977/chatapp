@@ -1,14 +1,19 @@
 import { useState, useRef } from "react";
 import { Chat } from "../chat";
 
-const Room: React.FC = () => {
-    const [room, setRoom] = useState(null);
-    const roomInput = useRef(null);
+interface RoomProps {
+  room: string | null;
+}
 
-    const handleFormSubmit = (event) => {
+const Room: React.FC<RoomProps> = () => {
+    const [room, setRoom] = useState<string | null>(null);
+    const roomInput = useRef<HTMLInputElement | null>(null);
+
+    const handleFormSubmit = (event: React.FormEvent) => {
         event.preventDefault();
         if (roomInput.current) {
             const inputValue = roomInput.current.value;
+            
             if (inputValue !== "") {
                 setRoom(inputValue);
             }
