@@ -13,10 +13,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Landing />,
-    },
-    {
-        path: "logout",
-        element: <Logout/>
+  },
+  {
+    path: "logout",
+    element: <Logout />,
   },
   {
     path: "/home",

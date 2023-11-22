@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
@@ -12,13 +12,18 @@ type FormValues = {
 const cookies = new Cookies();
 
 const SignupForm: React.FC = () => {
+  const [isAuth] = useState(cookies.get("auth-token"));
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>();
-
+  useEffect(() => {
+    if (isAuth) {
+      navigate('/home');
+    }
+  }, [isAuth, navigate]);
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, data.userEmail, data.userPassword)

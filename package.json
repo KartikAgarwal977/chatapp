@@ -12,6 +12,7 @@
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "firebase": "^10.6.0",
+    "openai": "^4.19.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.48.2",

@@ -20,11 +20,12 @@ export const Chat: React.FC<RoomProps> = (props) => {
   useEffect(() => {
     const queryMessage = query(messageRef, where("room", "==", room));
     const unsubscribe = onSnapshot(queryMessage, (snapshot) => {
-      const newMessages = snapshot.docs.map((doc) => doc.data());
-      setMessages(newMessages);
+      const messageArray:any[] = [];
+      snapshot.forEach((doc) => {
+        messageArray.push({...doc.data(), id: doc.id});
+      })
+      setMessages(messageArray);
     });
-
-    // Clean up function
     return () => unsubscribe();
   }, [messageRef, room]);
 
