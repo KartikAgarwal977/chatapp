@@ -18,7 +18,7 @@ const JoinPrivateRoom: React.FC = () => {
         const unsubscribe = onSnapshot(queryRoom, (snapshot) => {
             if (!snapshot.empty) {
                 console.log(snapshot.docs[0].data());
-                navigate(`/chat/${newRoom}`)
+                navigate(`/PrivateChat/${newRoom}`)
             }
         })
         return () => unsubscribe()
