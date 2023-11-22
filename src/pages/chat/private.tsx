@@ -10,12 +10,12 @@ import {
 import { auth, db } from "../../firebase-config";
 import { useParams } from "react-router-dom";
 
-export const Chat: React.FC = () => {
+export const ChatPrivate: React.FC = () => {
   const room = useParams();
   console.log(room);
   const [newMessage, setNewMessage] = useState<string>();
   const [messages, setMessages] = useState<DocumentData[]>([]);
-  const messageRef = collection(db, "messages");
+  const messageRef = collection(db, "messagesPrivate");
 
   useEffect(() => {
     const queryMessage = query(messageRef, where("room", "==", room));
