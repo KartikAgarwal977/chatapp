@@ -48,7 +48,6 @@ export const Chat: React.FC = () => {
   };
 
   return (
-    <div className="grid grid-cols-2">
       <div className="bg-amber-200 h-screen flex flex-col">
         <div className="overflow-auto p-4 space-y-4">
           {messages.map((message, index) => (
@@ -88,6 +87,5 @@ export const Chat: React.FC = () => {
           </button>
         </form>
       </div>
-    </div>
   );
 };
